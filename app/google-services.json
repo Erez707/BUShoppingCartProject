@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "199773875119",
+    "firebase_url": "https://bushoppingcartproject.firebaseio.com",
+    "project_id": "bushoppingcartproject",
+    "storage_bucket": "bushoppingcartproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:199773875119:android:6fa87a643168c302f2dd5a",
+        "android_client_info": {
+          "package_name": "com.example.bushoppingcartproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "199773875119-1bdm4ffuumltjj4h4dlgski2d23drkti.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bushoppingcartproject",
+            "certificate_hash": "9fe3c93c2b9a90e7f5b61fea070bf973feb98a6e"
+          }
+        },
+        {
+          "client_id": "199773875119-ke31mkbeh69kqep8jo1ejkr7bfhj8qpv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCmdAlMSk9Mhd5VQqss8i8hiLMhyLE_9g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "199773875119-ke31mkbeh69kqep8jo1ejkr7bfhj8qpv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

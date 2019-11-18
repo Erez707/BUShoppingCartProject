@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <!-- ensures only one item at a time can be selected and the item is not just an action item-->
+   <group android:checkableBehavior="single">
+       <item
+           android:id="@+id/nav_store"
+           android:icon="@drawable/ic_store_black_24dp"
+           android:title="Store"
+           />
+       <item
+           android:id="@+id/nav_cart"
+           android:icon="@drawable/shopping_cart_icon"
+           android:title="Cart"
+           />
+       <item
+           android:id="@+id/nav_orders"
+           android:icon="@drawable/ic_orders_24dp"
+           android:title="Orders"
+           />
+   </group>
+    <!-- this item is just an action item, it is not selectable (no fragment is attached to it) -->
+    <group>
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout_icon"
+            android:title="Logout"
+            />
+    </group>
+
+</menu>
