@@ -1,21 +1,8 @@
 package com.example.bushoppingcartproject;
 
 
-import android.content.ContentResolver;
-import android.content.Context;
-import android.net.Uri;
-import android.os.Handler;
-import android.webkit.MimeTypeMap;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 public class Shelf {
 
@@ -130,27 +117,27 @@ public class Shelf {
         Item[] itemsOnShelf = {
                 coffee,
                 tea,
-//                honey,
-//                brownSugar,
-//                whiteSugar,
-//                cookies,
-//                crackers,
-//                milk,
-//                redApples,
-//                greenApples,
-//                oranges,
-//                kiwis,
-//                dragonFruit,
-//                watermelon,
-//                bananas,
-//                mango,
-//                lemons,
-//                limes,
-//                guava,
-//                grapefruit,
-//                greenGrape,
-//                redGrapes,
-//                samuraiSword
+                honey,
+                brownSugar,
+                whiteSugar,
+                cookies,
+                crackers,
+                milk,
+                redApples,
+                greenApples,
+                oranges,
+                kiwis,
+                dragonFruit,
+                watermelon,
+                bananas,
+                mango,
+                lemons,
+                limes,
+                guava,
+                grapefruit,
+                greenGrape,
+                redGrapes,
+                samuraiSword
         };
 
 
@@ -171,25 +158,4 @@ public class Shelf {
 
         shelfReference.child("Users").child(username).child("Shelf").child(itemOnShelf.getName()).setValue(itemOnShelf);
     }
-
-    // the number that is displayed in the database for the image is referencing the drawable number...I may be able to just leave it as is and us that number to find the image from the drawables folder rather than use the storage.
-//    private void UploadImagesToStorage(Item itemOnShelf) {
-//        // save all images to a folder called "images" in firebase storage
-//        StorageReference imageFolderStorageRef = FirebaseStorage.getInstance().getReference("images");
-//
-//        // Upload the images
-//        Uri imageUri = getResources().getResourceEntryName(itemOnShelf.getImage());
-//        StorageReference imageFileStorageRef = imageFolderStorageRef.child(String.valueOf(imageUri));
-//
-//
-//
-//    }
-//
-//    // I may not need te file extension *************************************************
-//    private String getFileExtension(Context context, Uri uri) {
-//        ContentResolver contentResolver = context.getContentResolver();
-//        MimeTypeMap mime = MimeTypeMap.getSingleton();
-//        return mime.getExtensionFromMimeType(contentResolver.getType(uri));
-//    }
-
 }
