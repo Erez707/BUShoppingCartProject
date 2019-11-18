@@ -7,33 +7,22 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bushoppingcartproject.UserData.DisplayName;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class ShoppingActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;
     private StoreFragment Store = new StoreFragment();  // should I create an instance for the cart and orders fragments?? and an instance doesn't change my issue!!
 
-    private DatabaseReference ShelfReference;
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +30,6 @@ public class ShoppingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shopping);
 
         FragmentManager.enableDebugLogging(true);
-        ShelfReference = FirebaseDatabase.getInstance().getReference().child("User").child(DisplayName.currentUser.username).child("Shelf");
 
 
 
@@ -93,37 +81,6 @@ public class ShoppingActivity extends AppCompatActivity {
         TextView profileName = headerView.findViewById(R.id.profileName);
         profileName.setText(DisplayName.currentUser.username);
 
-        recyclerView = findViewById(R.id.recycler_menu);
-//        recyclerView.setHasFixedSize(true);                      // this may not be true because I want to be able to change things per user,,,decide later
-        layoutManager = new LinearLayoutManager(this);  // MAYBE CHANGE TO GRID LAYOUT MANAGER (try different things out)
-        recyclerView.setLayoutManager(layoutManager);
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        FirebaseRecyclerOptions<Item> options = new FirebaseRecyclerOptions.Builder<Item>().setQuery(ShelfReference, Item.class).build();
-
-        FirebaseRecyclerAdapter<Item, ItemViewHolder> adapter = new FirebaseRecyclerAdapter<Item, ItemViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull ItemViewHolder holder, int position, @NonNull Item model) {
-                //display the data in the store_items_layout cardview
-                holder.itemName.setText(model.getName());
-                holder.itemPrice.setText(String.valueOf(model.getPrice()));
-
-            }
-
-            @NonNull
-            @Override
-            public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.store_items_layout, parent, false);
-                return new ItemViewHolder(view);
-            }
-        };
-        recyclerView.setAdapter(adapter);
-        adapter.startListening();
     }
 
     // close the menu after option is selected
