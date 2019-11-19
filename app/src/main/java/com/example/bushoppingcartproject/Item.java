@@ -12,7 +12,7 @@ public class Item {
 
     // Constructor
     public Item() {
-
+        // empty constuctor is required for Firebase's automatic data mapping.
     }
 
     public Item( String name, double price, int priority, int image, boolean purchased) {
