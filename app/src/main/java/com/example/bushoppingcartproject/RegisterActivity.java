@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.bushoppingcartproject.StoreShelf.Shelf;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +28,6 @@ public class RegisterActivity extends AppCompatActivity {
     private Button registerFinalButton;
     private EditText registerUsernameInput;
     private ProgressDialog loadingBar;
-    private Shelf createStoreShelf;
 
 
     @Override
@@ -35,7 +35,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        createStoreShelf = new Shelf();
         registerFinalButton = findViewById(R.id.registerFinalButton);
         registerUsernameInput = findViewById(R.id.registerUsernameInput);
         loadingBar = new ProgressDialog(this);
@@ -85,8 +84,6 @@ public class RegisterActivity extends AppCompatActivity {
                                 loadingBar.dismiss();
                                 Toast.makeText(RegisterActivity.this, "Registration Complete!", Toast.LENGTH_SHORT).show();
 
-                                // populate store shelf with all items in the database
-                                createStoreShelf.createStoreCatalog(username);
 
                                 Intent sendToLoginPage = new Intent(RegisterActivity.this, LoginActivity.class);
                                 startActivity(sendToLoginPage);

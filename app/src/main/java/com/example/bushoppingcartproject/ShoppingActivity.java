@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bushoppingcartproject.StoreShelf.Shelf;
 import com.example.bushoppingcartproject.UserData.DisplayName;
 import com.google.android.material.navigation.NavigationView;
 
@@ -22,16 +23,18 @@ public class ShoppingActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;
     private StoreFragment Store = new StoreFragment();  // should I create an instance for the cart and orders fragments?? and an instance doesn't change my issue!!
-
+    private Shelf createStoreShelf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
 
+        // populate store shelf with all items to the database
+        createStoreShelf = new Shelf();
+        createStoreShelf.createStoreCatalog();
+
         FragmentManager.enableDebugLogging(true);
-
-
 
         //this sets the toolbar as the actionbar
         Toolbar toolbar = findViewById(R.id.toolbar);

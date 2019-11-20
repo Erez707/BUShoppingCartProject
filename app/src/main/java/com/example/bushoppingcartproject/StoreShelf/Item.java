@@ -1,4 +1,4 @@
-package com.example.bushoppingcartproject;
+package com.example.bushoppingcartproject.StoreShelf;
 
 
 public class Item {

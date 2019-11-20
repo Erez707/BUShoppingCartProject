@@ -1,6 +1,8 @@
-package com.example.bushoppingcartproject;
+package com.example.bushoppingcartproject.StoreShelf;
 
 
+import com.example.bushoppingcartproject.R;
+import com.example.bushoppingcartproject.StoreShelf.Item;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -13,7 +15,7 @@ public class Shelf {
         purchased = false;
     }
 
-    public Item[] createStoreCatalog(String username) {
+    public Item[] createStoreCatalog() {
         // Instantiate all Items on the Shelf
         // 23 total items total price = $106.77
 
@@ -142,7 +144,7 @@ public class Shelf {
 
 
         for (int i = 0; i<itemsOnShelf.length; i++) {
-            SaveStoreCatalogToDatabase(itemsOnShelf[i], username);
+            SaveStoreCatalogToDatabase(itemsOnShelf[i]);
         }
         return itemsOnShelf;
     }
@@ -151,11 +153,11 @@ public class Shelf {
 
 
     // Save item in the firebase database if it doesn't exist
-    private void SaveStoreCatalogToDatabase(final Item itemOnShelf, String username) {
+    private void SaveStoreCatalogToDatabase(final Item itemOnShelf) {
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference shelfReference = database.getReference();
 
-        shelfReference.child("Users").child(username).child("Shelf").child(itemOnShelf.getName()).setValue(itemOnShelf);
+        shelfReference.child("Shelf").child(itemOnShelf.getName()).setValue(itemOnShelf);
     }
 }
