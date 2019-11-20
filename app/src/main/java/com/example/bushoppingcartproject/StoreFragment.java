@@ -1,7 +1,6 @@
 package com.example.bushoppingcartproject;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bushoppingcartproject.StoreShelf.Item;
-import com.example.bushoppingcartproject.UserData.DisplayName;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 public class StoreFragment extends Fragment {
 
@@ -30,12 +23,9 @@ public class StoreFragment extends Fragment {
         // empty constructor needed for Firebase
     }
 
-
     private DatabaseReference ShelfReference;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-
-    private final String log = "RESULT DATA";
 
     @Nullable
     @Override
@@ -45,26 +35,11 @@ public class StoreFragment extends Fragment {
         ShelfReference.keepSynced(true);
 
         recyclerView = storeView.findViewById(R.id.recycler_menu);
-        recyclerView.setHasFixedSize(true);                      // this may not be true because I want to be able to change things per user,,,decide later
-        layoutManager = new LinearLayoutManager(getActivity());  // MAYBE CHANGE TO GRID LAYOUT MANAGER (try different things out)
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-//        ShelfReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                Item name = dataSnapshot.getValue(Item.class);
-//                System.out.println(name);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-
-
         return storeView;
-
     }
 
     @Override
@@ -79,7 +54,7 @@ public class StoreFragment extends Fragment {
                 //display the data in the store_items_layout cardview
                 holder.itemName.setText(model.getName());
                 holder.itemPrice.setText(String.valueOf(model.getPrice()));
-//                Picasso.get().load(model.getImage()).into(holder.itemImage);
+                holder.itemImage.setImageResource(model.getImage());
 
             }
 

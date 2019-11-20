@@ -30,10 +30,6 @@ public class ShoppingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
 
-        // populate store shelf with all items to the database
-        createStoreShelf = new Shelf();
-        createStoreShelf.createStoreCatalog();
-
         FragmentManager.enableDebugLogging(true);
 
         //this sets the toolbar as the actionbar
@@ -84,6 +80,11 @@ public class ShoppingActivity extends AppCompatActivity {
         TextView profileName = headerView.findViewById(R.id.profileName);
         profileName.setText(DisplayName.currentUser.username);
 
+
+        // populate store shelf with all items to the database
+        createStoreShelf = new Shelf();
+        createStoreShelf.createStoreCatalog();
+
     }
 
     // close the menu after option is selected
@@ -96,5 +97,7 @@ public class ShoppingActivity extends AppCompatActivity {
         }
 
     }
+
+
 }
 
