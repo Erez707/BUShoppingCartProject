@@ -14,12 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bushoppingcartproject.StoreShelf.Item;
 import com.example.bushoppingcartproject.UserData.DisplayName;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class StoreFragment extends Fragment {
 
@@ -38,7 +41,7 @@ public class StoreFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View storeView = inflater.inflate(R.layout.fragment_store, container, false);
-        ShelfReference = FirebaseDatabase.getInstance().getReference().child("User").child(DisplayName.currentUser.username).child("Shelf").child("Coffee");
+        ShelfReference = FirebaseDatabase.getInstance().getReference().child("Shelf");
         ShelfReference.keepSynced(true);
 
         recyclerView = storeView.findViewById(R.id.recycler_menu);
@@ -46,47 +49,48 @@ public class StoreFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());  // MAYBE CHANGE TO GRID LAYOUT MANAGER (try different things out)
         recyclerView.setLayoutManager(layoutManager);
 
-        ShelfReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Item name = dataSnapshot.getValue(Item.class);
-                System.out.println(name);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+//        ShelfReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                Item name = dataSnapshot.getValue(Item.class);
+//                System.out.println(name);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
 
         return storeView;
 
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//
-//        FirebaseRecyclerOptions<Item> options = new FirebaseRecyclerOptions.Builder<Item>().setQuery(ShelfReference, Item.class).build();
-//
-//        FirebaseRecyclerAdapter<Item, ItemViewHolder> adapter = new FirebaseRecyclerAdapter<Item, ItemViewHolder>(options) {
-//            @Override
-//            protected void onBindViewHolder(@NonNull ItemViewHolder holder, int position, @NonNull Item model) {
-//                //display the data in the store_items_layout cardview
-//                holder.itemName.setText(model.getName());
-//                holder.itemPrice.setText(String.valueOf(model.getPrice()));
-//
-//            }
-//
-//            @NonNull
-//            @Override
-//            public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.store_items_layout, parent, false);
-//                return new ItemViewHolder(view);
-//            }
-//        };
-//        recyclerView.setAdapter(adapter);
-//        adapter.startListening();
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        FirebaseRecyclerOptions<Item> options = new FirebaseRecyclerOptions.Builder<Item>().setQuery(ShelfReference, Item.class).build();
+
+        FirebaseRecyclerAdapter<Item, ItemViewHolder> adapter = new FirebaseRecyclerAdapter<Item, ItemViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull ItemViewHolder holder, int position, @NonNull Item model) {
+                //display the data in the store_items_layout cardview
+                holder.itemName.setText(model.getName());
+                holder.itemPrice.setText(String.valueOf(model.getPrice()));
+//                Picasso.get().load(model.getImage()).into(holder.itemImage);
+
+            }
+
+            @NonNull
+            @Override
+            public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.store_items_layout, parent, false);
+                return new ItemViewHolder(view);
+            }
+        };
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
+    }
 }
