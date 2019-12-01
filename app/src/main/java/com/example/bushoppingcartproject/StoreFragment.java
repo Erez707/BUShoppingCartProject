@@ -1,5 +1,6 @@
 package com.example.bushoppingcartproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,11 +51,20 @@ public class StoreFragment extends Fragment {
 
         FirebaseRecyclerAdapter<Item, ItemViewHolder> adapter = new FirebaseRecyclerAdapter<Item, ItemViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull ItemViewHolder holder, int position, @NonNull Item model) {
+            protected void onBindViewHolder(@NonNull final ItemViewHolder holder, int position, @NonNull final Item model) {
                 //display the data in the store_items_layout cardview
                 holder.itemName.setText(model.getName());
                 holder.itemPrice.setText(String.valueOf(model.getPrice()));
                 holder.itemImage.setImageResource(model.getImage());
+
+                holder.itemImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent priorityIntent = new Intent(getActivity(), PriorityActivity.class);
+                        priorityIntent.putExtra("itemName", model.getName());
+                        startActivity(priorityIntent);
+                    }
+                });
 
             }
 
