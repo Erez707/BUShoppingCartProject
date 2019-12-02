@@ -64,9 +64,9 @@ public class StoreFragment extends Fragment {
                         priorityIntent.putExtra("itemName", model.getName());
                         startActivity(priorityIntent);
 
-                        //send itemName to cart fragment
-                        Intent itemIntent = new Intent(getActivity(), ShoppingActivity.class);
-                        itemIntent.putExtra("itemName", model.getName());
+//                        //send itemName to cart fragment
+//                        Intent itemIntent = new Intent(getActivity(), ShoppingActivity.class);
+//                        itemIntent.putExtra("itemName", model.getName());
                     }
                 });
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,8 +17,13 @@ import com.example.bushoppingcartproject.StoreShelf.Item;
 import com.example.bushoppingcartproject.UserData.DisplayName;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Iterator;
 
 public class CartFragment extends Fragment {
 
@@ -29,26 +35,35 @@ public class CartFragment extends Fragment {
     private DatabaseReference CartReference;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
+    private String currentUser;
 
-//    private String selectedItem;
+    private Button checkoutButton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View cartView = inflater.inflate(R.layout.fragment_cart, container, false);
 
-        // Receive intent data from StoreFragment
-//        selectedItem = getActivity().getIntent().getStringExtra("itemName");  //  I HOPE THIS WORKS...NOT SURE YET!!!!!!!!!!!
+        checkoutButton = cartView.findViewById(R.id.checkoutButton);
 
-        String currentUser = DisplayName.currentUser.username;
+
+        currentUser = DisplayName.currentUser.username;
         currentUserCart = currentUser + "-Cart";
-        CartReference = FirebaseDatabase.getInstance().getReference().child(currentUserCart);  // my not need teh selected item part!!!!!!!!!!!!
+        CartReference = FirebaseDatabase.getInstance().getReference().child(currentUserCart);
         CartReference.keepSynced(true);
 
         recyclerView = cartView.findViewById(R.id.cart_recycler_menu);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+
+
+        checkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addItemToOrdersFragment();
+            }
+        });
 
         return cartView;
     }
@@ -80,4 +95,57 @@ public class CartFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         adapter.startListening();
     }
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void addItemToOrdersFragment() {
+        // iterate through items in cart and create an orders list for the user
+
+        final String currentUserOrders = currentUser + "-Orders";
+        final DatabaseReference OrdersReference = FirebaseDatabase.getInstance().getReference().child(currentUserOrders);
+
+        CartReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!(dataSnapshot.child(currentUserOrders).exists())) {
+                    Iterator<DataSnapshot> itemsInCart = dataSnapshot.getChildren().iterator();
+
+                    while (itemsInCart.hasNext()) {
+                        DataSnapshot itemInCart = itemsInCart.next();
+                        Item cartItem = itemInCart.getValue(Item.class);
+                        OrdersReference.child(cartItem.getName()).setValue(cartItem);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Failed to read value
+                throw databaseError.toException();
+            }
+        });
+    }
+
+//    private void getItemDetails() {
+//        CartReference.child(selectedItem).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists()) {
+//                    selectedCartItem = dataSnapshot.getValue(Item.class);
+//
+//                    itemName.setText(selectedCartItem.getName());
+//                    itemPrice.setText(String.valueOf(selectedCartItem.getPrice()));
+//                    itemImage.setImageResource(selectedCartItem.getImage());
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                // Failed to read value
+//                throw databaseError.toException();
+//            }
+//        });
+//
+//    }
 }
