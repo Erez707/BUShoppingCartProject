@@ -62,6 +62,8 @@ public class CartFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 addItemToOrdersFragment();
+                // Clear cart fragment
+                CartReference.removeValue();
             }
         });
 
@@ -97,8 +99,6 @@ public class CartFragment extends Fragment {
     }
 
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     private void addItemToOrdersFragment() {
         // iterate through items in cart and create an orders list for the user
 
@@ -126,26 +126,5 @@ public class CartFragment extends Fragment {
         });
     }
 
-//    private void getItemDetails() {
-//        CartReference.child(selectedItem).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//                    selectedCartItem = dataSnapshot.getValue(Item.class);
-//
-//                    itemName.setText(selectedCartItem.getName());
-//                    itemPrice.setText(String.valueOf(selectedCartItem.getPrice()));
-//                    itemImage.setImageResource(selectedCartItem.getImage());
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                // Failed to read value
-//                throw databaseError.toException();
-//            }
-//        });
-//
-//    }
+
 }

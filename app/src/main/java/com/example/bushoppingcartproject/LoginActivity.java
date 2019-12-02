@@ -50,8 +50,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         else{
-//            Intent loginIntent = new Intent(LoginActivity.this, ShoppingActivity.class);
-//            startActivity(loginIntent);
             AllowAccessToAccount(username);
         }
 

@@ -21,4 +21,5 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
         cartItemImage = itemView.findViewById(R.id.cartItemImage);
 
     }
+
 }
