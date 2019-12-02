@@ -19,9 +19,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
 
 public class PriorityActivity extends AppCompatActivity {
+
 
     private TextView itemName;
     private TextView itemPrice;
@@ -29,7 +29,8 @@ public class PriorityActivity extends AppCompatActivity {
     private Button addToCartButton;
     private NumberPicker priorityPicker;
 
-    private String selectedItem;
+    private Item selectedCartItem;
+    private String selectedItem; // object name, used as the object(Item) ID
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +75,8 @@ public class PriorityActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (!(dataSnapshot.child(currentUserCart).child(selectedItem).exists())) {
-                    final HashMap<String, Object> cartMap = new HashMap<>();
-                    cartMap.put("name", itemName.getText().toString());
-                    cartMap.put("price", itemPrice.getText().toString());
-                    cartMap.put("priority", String.valueOf(priorityPicker.getValue()));
-
-                    userCartList.updateChildren(cartMap);
+                    selectedCartItem.setPriority(priorityPicker.getValue());
+                    userCartList.setValue(selectedCartItem);
                 }
             }
             @Override
@@ -100,12 +97,11 @@ public class PriorityActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    Item item = dataSnapshot.getValue(Item.class);
+                    selectedCartItem = dataSnapshot.getValue(Item.class);
 
-                    itemName.setText(item.getName());
-                    itemPrice.setText(String.valueOf(item.getPrice()));
-                    itemImage.setImageResource(item.getImage());
-                    item.setPriority(priorityPicker.getValue());
+                    itemName.setText(selectedCartItem.getName());
+                    itemPrice.setText(String.valueOf(selectedCartItem.getPrice()));
+                    itemImage.setImageResource(selectedCartItem.getImage());
                 }
 
             }

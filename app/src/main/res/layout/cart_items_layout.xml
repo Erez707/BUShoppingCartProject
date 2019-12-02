@@ -1,46 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="3dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp">
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/itemName"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:text="Item Name"
-            android:textAlignment="center"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="#000000"
+            android:id="@+id/cartItemPriority"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
             android:background="@drawable/item_text_background"
-            android:layout_toRightOf="@id/itemImage"
-            />
-
-        <TextView
-            android:id="@+id/itemPrice"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_below="@+id/itemName"
-            android:layout_toRightOf="@id/itemImage"
-            android:text="$$Price"
-            android:textAlignment="center"
-            android:textSize="20dp"
-            android:textStyle="italic"
+            android:text="Priority"
+            android:gravity="center"
             android:textColor="#000000"
-            android:background="@drawable/item_text_background"
-            />
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/itemImage"
-            android:layout_width="300dp"
+            android:id="@+id/cartItemImage"
+            android:layout_width="250dp"
             android:layout_height="60dp"
-            android:scaleType="centerCrop"
-            />
+            android:layout_toRightOf="@+id/cartItemPriority"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/cartItemName"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_toRightOf="@id/cartItemImage"
+            android:background="@drawable/item_text_background"
+            android:text="Item Name"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cartItemPrice"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/cartItemName"
+            android:layout_toRightOf="@id/cartItemImage"
+            android:background="@drawable/item_text_background"
+            android:text="$$Price"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:textStyle="italic" />
 
 
     </RelativeLayout>

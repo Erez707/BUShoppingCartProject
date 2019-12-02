@@ -53,21 +53,20 @@ public class CartFragment extends Fragment {
         return cartView;
     }
 
-    //           HERE I NEED TO ORDER BY PRIORITY!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
     @Override
     public void onStart() {
         super.onStart();
 
-        FirebaseRecyclerOptions<Item> options = new FirebaseRecyclerOptions.Builder<Item>().setQuery(CartReference, Item.class).build();
+        FirebaseRecyclerOptions<Item> options = new FirebaseRecyclerOptions.Builder<Item>().setQuery(CartReference.orderByChild("priority"), Item.class).build();
 
         FirebaseRecyclerAdapter<Item, CartViewHolder> adapter = new FirebaseRecyclerAdapter<Item, CartViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull final CartViewHolder holder, int position, @NonNull final Item model) {
                 //display the data in the cart_items_layout cardview
-                holder.itemName.setText(model.getName());
-                holder.itemPrice.setText(String.valueOf(model.getPrice()));
-//                holder.itemImage.setImageResource(model.getImage());
+                holder.cartItemName.setText(model.getName());
+                holder.cartItemPrice.setText(String.valueOf(model.getPrice()));
+                holder.cartItemImage.setImageResource(model.getImage());
+                holder.cartItemPriority.setText(String.valueOf(model.getPriority()));
 
             }
 
