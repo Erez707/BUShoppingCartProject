@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +37,8 @@ public class CartFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private String currentUser;
+    private double budget;
+//    private double moneyLeftOver;
 
     private Button checkoutButton;
 
@@ -45,6 +48,10 @@ public class CartFragment extends Fragment {
         View cartView = inflater.inflate(R.layout.fragment_cart, container, false);
 
         checkoutButton = cartView.findViewById(R.id.checkoutButton);
+
+//        // user's Budget
+//        budget = 59.00;
+//        moneyLeftOver = 00.00;
 
 
         currentUser = DisplayName.currentUser.username;
@@ -115,6 +122,9 @@ public class CartFragment extends Fragment {
                         DataSnapshot itemInCart = itemsInCart.next();
                         Item cartItem = itemInCart.getValue(Item.class);
                         OrdersReference.child(cartItem.getName()).setValue(cartItem);
+
+//                        // subtract item's cost from budget
+//                        moneyLeftOver = budget - cartItem.getPrice();
                     }
                 }
             }

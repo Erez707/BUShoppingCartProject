@@ -9,7 +9,6 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,8 +21,33 @@
             android:background="@drawable/side_nav_bar"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:elevation="4dp"
-            />
+            android:elevation="4dp">
+
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="?attr/actionBarSize"
+                android:src="@drawable/wallet_icon"
+                android:layout_marginLeft="290dp"
+                android:layout_above="@id/checkoutButton"
+
+                />
+
+            <TextView
+                android:id="@+id/wallet"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="59.00"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="17dp"
+                android:layout_above="@id/checkoutButton"
+
+                />
+
+        </androidx.appcompat.widget.Toolbar>
 
         <FrameLayout
             android:id="@+id/fragment_container"

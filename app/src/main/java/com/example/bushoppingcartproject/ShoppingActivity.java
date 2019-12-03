@@ -25,10 +25,12 @@ public class ShoppingActivity extends AppCompatActivity {
     private StoreFragment Store = new StoreFragment();  // should I create an instance for the cart and orders fragments?? and an instance doesn't change my issue!!
     private Shelf createStoreShelf;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
+
 
         FragmentManager.enableDebugLogging(true);
 
